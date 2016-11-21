@@ -124,20 +124,20 @@ void game() {
 							cout << "\n\tYou have BURNED A Goblin  Grunt! \n\n";
 							highscore += goblinGrunt(monster);
 							cout << "\tPress 1 to Attack Again!\n"
-								<< "\tPress 2 to End Game";
+								<< "\tPress 2 to go to Main Menu";
 						}
 
 						else if (weaponAttack(random) == harpy) {
 							cout << "\n\tYou have BURNED A Harpy! \n";
 							highscore += harpyMonster(monster);
 							cout << "\tPress 1 to Attack Again!\n"
-								<< "\tPress 2 to End Game";
+								<< "\tPress 2 to go to Main Menu";
 						}
 						else if (weaponAttack(random) == balrog) {
 							cout << "\n\tYou have BURNED A Balrog! \n";
 							highscore += balrogMonster(monster);
 							cout << "\tPress 1 to Attack Again!\n"
-								<< "\tPress 2 to End Game";
+								<< "\tPress 2 to go to Main Menu";
 						}
 						else if (weaponAttack(random) == miss) {
 							cout << "\n\tYou missed Monsters got AWAY!!\n";
@@ -173,20 +173,20 @@ void game() {
 							cout << "\n\tYou have SHOT A Goblin  Grunt! \n\n";
 							highscore += goblinGrunt(monster);
 							cout << "\tPress 1 to Attack Again!\n"
-								<< "\tPress 2 to End Game";
+								<< "\tPress 2 to go to Main Menu";
 						}
 
 						else if (weaponAttack(random) == harpy) {
 							cout << "\n\tYou have SHOT A Harpy! \n";
 							highscore += harpyMonster(monster);
 							cout << "\tPress 1 to Attack Again!\n"
-								<< "\tPress 2 to End Game";
+								<< "\tPress 2 to go to Main Menu";
 						}
 						else if (weaponAttack(random) == balrog) {
 							cout << "\n\tYou have SHOT A Balrog! \n";
 							highscore += balrogMonster(monster);
 							cout << "\tPress 1 to Attack Again!\n"
-								<< "\tPress 2 to End Game";
+								<< "\tPress 2 to go to Main Menu";
 						}
 						else if (weaponAttack(random) == miss) {
 							cout << "\n\tYou missed, Arrow Wasted!!\n";
@@ -222,8 +222,8 @@ void game() {
 							cout << "\n\tYou have Created a Magic Potion CONGRATULATIONS! \n\n";
 							Success = potionSuccess(Success);
 							highscore += Success;
-							cout << "\tPress 1 to Attack Again!\n"
-								<< "\tPress 2 to End Game";
+							cout << "\tPress 1 to CRAFT Again!\n"
+								<< "\tPress 2 to go to Main Menu";
 						}
 
 						else if (weaponMagicPotion(random) == 2) {
@@ -231,7 +231,7 @@ void game() {
 							Fail = potionFail(Fail);
 							highscore += Fail;
 							cout << "\tPress 1 to CRAFT at another Tavern!\n"
-								<< "\tPress 2 to End Game";
+								<< "\tPress 2 to go to Main Menu";
 						}
 
 					}	//Main if attack 3
