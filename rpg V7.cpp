@@ -1,5 +1,5 @@
 /*
-	RPG Adventures V5 
+	RPG Adventures V7 
 
 	Victor Martins and Fayyaadh Razak
 
