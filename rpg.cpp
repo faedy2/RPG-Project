@@ -1,29 +1,34 @@
-\/*
-RPG Adventures V5
+/*
+	Victor Martins & Fayyaadh Razak
 
-Victor Martins and Fayyaadh Razak
+	rpg.cpp
 
-Input:
-1. Pick Race
-2. Pick Weapon
-3. Fight
-4. Craft Success/Failure.
-5. Input Player Name if their score is the highest.
+	Create an RPG that will show your knowledge of everything that you
+	have learned so far in this class, which includes, but is not
+	limited to:
+	- Functional Decomposition
+	- Looping
+	- Conditional Statements
 
-Processing:
-1. The player gets to pick his/her race
-2. Player gets to pick their weapon,
-3. You can fight mosnters until you want to switch
-4. In the end it'll mark your score.
-5. If you do not have a score it will create the "highscore.txt" and save the score.
+	Input: Main menu choice, Character choice, Weapon choice
 
-Output: The Gme will play based on the decisions you will make, You can start by Picking a race and
-weapon and play the game. You will kill 3 different knds of monsters for different amount of points.
+	Processing:
+		1. Display menu of choices 1-3 for player to choose from
+		2. When player chooses "2" at the start menu, then begin the game
+		3. Add to player's point total based on what character they choose
+		4. Start a specific minigame based on what weapon the player chooses:
+			- If they choose "1" or "2", then they can attack as many monsters as they want to,
+			  and points will be accumulated based on what monsters they attack
+			- If they choose "3", then they will have the chance to create a potion, and they
+			  will gain or lose points based on whether or not they successfully made the potion
+		5. Check points in "highscore.txt" and points that the current player accumulated. If
+		   current player got the new highscore, then their info will replace the info in
+		   "highscore.txt".
 
-You can also craft potions and you can fail at making them which you lose points for as well.
+	Output: Highscore of the player to a file (if it is higher than current high score)
 */
 
-//Headers
+// Header Files
 #include<iostream>
 #include<string>
 #include<iomanip>
@@ -33,9 +38,9 @@ You can also craft potions and you can fail at making them which you lose points
 
 using namespace std;
 
-//Prototypes:
+// Function Prototypes
 void quit();
-void menu();
+void rules();
 void game();
 int human(int);
 int ogre(int);
@@ -52,53 +57,62 @@ void readHighscore(int, string, string&, int&);
 
 int main() {
 
-	game();// Calls for the whole game
+	// Run the entire game from one function
+	game();
 
 	return 0;
 }
 
 
+
+/*
+	void game()
+
+	Uses all other functions in order to run the game
+	instead of putting the majority of the code in main
+
+	Return Value: None
+*/
 void game() {
-	string name, currentName;			//variables
+	// Variable Declarations
+	string name, currentName;
 	int choice = 0, points = 0, random = 0;
-	int weapon = 0, race = 0, highscore = 0, goblin = 1;
-	int harpy = 2, balrog = 3, miss = 4, monster = 0;
-	int Success = 0, Fail = 0, curentScore;
+	int weapon = 0, race = 0, highscore = 0;
+	int goblin = 1, harpy = 2, balrog = 3, miss = 4, monster = 0;
+	int Success = 0, Fail = 0, currentScore;
+	char keepPlaying;
 
-
-
-	do {// Main selection menu
-
-		cout << setw(30) << right << endl << "\n\tWelcome to RPG Adventures!\n" << endl;
-		cout << "Please Select an Option: \n" <<
-			"\t1. See Rules.\n" <<
-			"\t2. PLAY Game!\n" <<
-			"\t3. Quit\n" <<
-			" \tChoose: ";
+	// Main selection menu
+	do {
+		cout << setw(30) << right << endl << "\n\tWelcome to RPG Adventures!" << endl << endl;
+		cout << "Please Select an Option: " << endl
+			<< "\t1. See Rules" << endl
+			<< "\t2. Play Game" << endl
+			<< "\t3. Quit" << endl
+			<< "\tChoice: ";
 		cin >> choice;
-		if (choice < 0 || choice > 4) {
-			cout << "\n\tWrong Values Try Again.";
 
+		if (choice < 1 || choice > 3) {
+			cout << "\n\tInvalid input... Try again...";
 		}
+
 		switch (choice) {
-
 		case 1:
-			menu();
+			rules();
 			break;
-		case 2:		//Pick race
 
+		case 2:		// Pick character
 			do {
-				cout << "\n\tPick your Race: \n"
-					<< "\t1. Human \n"
-					<< "\t2. Ogre \n"
-					<< "\t3. Elf \n"
-					<< "\t Choose: ";
+				cout << "\n\tChoose your character:" << endl
+					<< "\t1. Human" << endl
+					<< "\t2. Ogre" << endl
+					<< "\t3. Elf" << endl
+					<< "\tChoice: ";
 
 				cin >> race;
 
-				if (race <= 0 || race > 3)
-					cout << "\n\tWrong Value Try again.";
-
+				if (race < 1 || race > 3)
+					cout << "\n\Invalid value... Try again..." << endl;
 				else if (race == 1) {
 					points = human(points);
 					highscore += points;
@@ -112,240 +126,287 @@ void game() {
 					highscore += points;
 				}
 
-			} while (race <= 0 || race > 3);
+			} while (race < 1 || race > 3);
 
-
-			do {		//Pick Weapon
-
-				cout << "\n\tPick your Weapon: \n"
-					<< "\t1. Flamethrower \n"
-					<< "\t2. Bow and Arrow(s) \n"
-					<< "\t3. Magic Potion \n" <<
-					"\tChoose: ";
-
+			// Pick Weapon
+			do {		
+				cout << "\n\tPick your Weapon:" << endl
+					<< "\t1. Flamethrower" << endl
+					<< "\t2. Bow and Arrow(s)" << endl
+					<< "\t3. Magic Potion" << endl
+					<< "\tChoice: ";
 				cin >> weapon;
 
-				if (weapon <= 0 || weapon > 3)
-					cout << "\n\tWrong Value Try Again. ";
+				if (weapon < 1 || weapon > 3)
+					cout << "\n\Invalid value... Try again..." << endl;
+			} while (weapon < 1 || weapon > 3);
 
-			} while (weapon <= 0 || weapon > 3);
-
-			// Flamethrower Battle!
-
+			// Flamethrower Battle
 			if (weapon == 1) {
-				cout << "\tYou have Entered the Blasted Lands!\n";
+				cout << "\n\tYou have Entered the Blasted Lands!" << endl;
 				int attack = 0;
-				cout << "\n\tYou have encountered a Monster do you wish to Take out your Flamethrower?\n"
-					<< "\tPress 1 to Take FLamethrower!" <<
-					"'\n\t Choose: ";
-
-
+				cout << "\n\tYou have encountered a monster. Do you wish to use your flamethrower?" << endl
+					<< "\tPress 1 to equip your flamethrower, or press 2 to give up the fight: ";
 
 				do {
 					cin >> attack;
-					cout << "\n\tYou Have Taken your Flamethrower out of your back-pack!\n";
 
-					if(attack >= 3)
-					cout << "\n\tWrong Choice Try Again.";
+					if (attack != 1 && attack != 2)
+						cout << "\n\tInvalid input... Try again: ";
 
 					if (attack == 1) {
 						// Random flamethrower attack options
 
+						cout << "\n\tYou aim your flamethrower..." << endl;
+
 						if (weaponAttack(random) == goblin) {
-							cout << "\n\tYou have BURNED A Goblin  Grunt! \n\n";
+							cout << "\n\tYou have BURNED A Goblin Grunt! \n\n";
 							highscore += goblinGrunt(monster);
-							cout << "\tPress 1 to Attack Again!\n"
-								<< "\tPress 2 to go to Main Menu" <<
-								"'\n\t Choose: ";
+							cout << "\tPress 1 to Attack again" << endl
+								<< "\tPress 2 to End your session" << endl
+								<< "\tChoice: ";
 						}
 
 						else if (weaponAttack(random) == harpy) {
 							cout << "\n\tYou have BURNED A Harpy! \n";
 							highscore += harpyMonster(monster);
-							cout << "\tPress 1 to Attack Again!\n"
-								<< "\tPress 2 to go to Main Menu" <<
-								"'\n\t Choose: ";
+							cout << "\tPress 1 to Attack again" << endl
+								<< "\tPress 2 to End your session" << endl
+								<< "\tChoice: ";
 						}
 						else if (weaponAttack(random) == balrog) {
 							cout << "\n\tYou have BURNED A Balrog! \n";
 							highscore += balrogMonster(monster);
-							cout << "\tPress 1 to Attack Again!\n"
-								<< "\tPress 2 to go to Main Menu" <<
-								"'\n\t Choose: ";
+							cout << "\tPress 1 to Attack again" << endl
+								<< "\tPress 2 to End your session" << endl
+								<< "\tChoice: ";
 						}
 						else if (weaponAttack(random) == miss) {
-							cout << "\n\tYou missed Monsters got AWAY!!\n";
-							cout << "\tPress 1 to Attack Again!\n"
-								<< "\tPress 2 to go to Main Menu!" <<
-								"'\n\t Choose: ";
+							cout << "\n\tYou missed!\n";
+							cout << "\tPress 1 to Attack again" << endl
+								<< "\tPress 2 to End your session" << endl
+								<< "\tChoice: ";
 						}
+					}
 
-					}	//Main if attack 1
+				} while (attack != 2);
 
-				} while (attack != 2);	//Random attacks
+			}	// End of weapon 1 if statement
 
-
-			}	// weapon 1 if statement.
-
-
-
-				// Bow and Arrow Battle
+			// Bow and Arrow Battle
 			if (weapon == 2) {
-				cout << "\tYou have Entered the Archer Forest!\n";
+				cout << "\tYou have Entered the Archer Forest..." << endl;
 				int attack = 0;
-				cout << "\n\tYou have encountered a Monster do you wish to Take out your Bow and Arrow(s) from your Quiver?\n"
-					<< "\tPress 1 to Equipt Bow and Arrow(s)!";
+				cout << "\n\tYou have encountered a monster. Do you wish to take out your bow and arrow(s) from your quiver?" << endl;
+				cout << "\tPress 1 to begin your session: ";
 
-				cout << "\n\tYou Have Take out your Bow and Arrow(s) from your Quiver!\n";
-				cout << "\tPress 1. ";
-				do {// Random bow and arrow attack options
+				// Random bow and arrow attack options
+				do {
 					cin >> attack;
+
 					if (attack == 1) {
-
-
 						if (weaponAttack(random) == goblin) {
-							cout << "\n\tYou have SHOT A Goblin  Grunt! \n\n";
+							cout << "\n\tYou have SHOT A Goblin Grunt!" << endl << endl;
 							highscore += goblinGrunt(monster);
-							cout << "\tPress 1 to Attack Again!\n"
-								<< "\tPress 2 to go to Main Menu" <<
-								"'\n\t Choose: ";
+							cout << "\tPress 1 to Attack again" << endl
+								<< "\tPress 2 to End your session" << endl
+								<< "\tChoice: ";
 						}
 
 						else if (weaponAttack(random) == harpy) {
-							cout << "\n\tYou have SHOT A Harpy! \n";
+							cout << "\n\tYou have SHOT A Harpy!" << endl;
 							highscore += harpyMonster(monster);
-							cout << "\tPress 1 to Attack Again!\n"
-								<< "\tPress 2 to go to Main Menu" <<
-								"'\n\t Choose: ";
+							cout << "\tPress 1 to Attack again" << endl
+								<< "\tPress 2 to End your session" << endl
+								<< "\tChoice: ";
 						}
 						else if (weaponAttack(random) == balrog) {
-							cout << "\n\tYou have SHOT A Balrog! \n";
+							cout << "\n\tYou have SHOT A Balrog!" << endl;
 							highscore += balrogMonster(monster);
-							cout << "\tPress 1 to Attack Again!\n"
-								<< "\tPress 2 to go to Main Menu" <<
-								"'\n\t Choose: ";
+							cout << "\tPress 1 to Attack again" << endl
+								<< "\tPress 2 to End your session" << endl
+								<< "\tChoice: ";
 						}
 						else if (weaponAttack(random) == miss) {
-							cout << "\n\tYou missed, Arrow Wasted!!\n";
-							cout << "\tPress 1 to Attack Again!\n"
-								<< "\tPress 2 to go to Main Menu!" <<
-								"'\n\t Choose: ";
+							cout << "\n\tYou missed..." << endl;
+							cout << "\tPress 1 to Attack again" << endl
+								<< "\tPress 2 to End your session" << endl
+								<< "\tChoice: ";
 						}
+					}
 
-					}	//Main if attack 2
+					else if (attack == 2)
+						break;
+
 					else
-						cout << "\n\tWrong Choice Try Again.";
+						cout << "\n\tIncorrect choice... Try again: ";
 
-				} while (attack != 2);	//Random attacks
-
-
-			}	// weapon 2 if statement.
+				} while (attack != 2);	// Allows player to continue until 2 is pressed
 
 
+			}	// End of weapon 2 if statement
 
-				//Crafting Potion
+			// Crafting Potion
 			if (weapon == 3) {
-				cout << "\tYou have Entered the Crafting Tavern!\n";
+				cout << "\n\tYou have entered the Crafting Tavern!" << endl;
 				int attack = 0;
-				cout << "\n\tYou walk up to an Alchemy Table?\n"
-					<< "\tPress 1 to Start Crafting Potions!\n" <<
-					"\n\t Choose: ";
-
-
+				cout << "\n\tYou walk up to an Alchemy Table..." << endl
+					<< "\tPress 1 to start crafting potions" << endl
+					<< "\tChoice: ";
 
 				do {
 					cin >> attack;
 
-					cout << "\tYou Have begun mixing magical ingredients!\n";
+					cout << "\n\tYou begin mixing magical ingredients..." << endl;
 
-					if (attack >= 3)
-						cout << "\n\tWrong Value Try Again.";
+					if (attack > 2)
+						cout << "\n\tInvalid input... Try again...";
 
 					if (attack == 1) {
 
-						if (weaponMagicPotion(random) == 1) {// If your are successful this if statement executes
-							cout << "\n\tYou have Created a Magic Potion CONGRATULATIONS! \n\n";
+						// If you are successful, this if statement executes
+						if (weaponMagicPotion(random) == 1) {
+							cout << "\tYou have created a Magic Potion! CONGRATULATIONS!" << endl << endl;
 							Success = potionSuccess(Success);
+
 							highscore += Success;
-							cout << "\tPress 1 to CRAFT Again!\n"
-								<< "\tPress 2 to go to Main Menu" <<
-								"'\n\t Choose: ";
+
+							cout << "\tPress 1 to craft again" << endl
+								<< "\tPress 2 to End your session" << endl
+								<< "\t Choice: ";
 						}
 
-						else if (weaponMagicPotion(random) == 2) {// If you fail this statemnet executes
-							cout << "\n\tYou have EXPLODED the Tavern! \n";
+						// If you fail, this statement executes
+						else if (weaponMagicPotion(random) == 2) {
+							cout << "\tYou destroyed the Tavern..." << endl << endl;
 							Fail = potionFail(Fail);
+
 							highscore += Fail;
-							cout << "\tPress 1 to CRAFT at another Tavern!\n"
-								<< "\tPress 2 to go to Main Menu" <<
-								"'\n\t Choose: ";
+
+							cout << "\tPress 1 to craft at another Tavern" << endl
+								<< "\tPress 2 to End your session" << endl
+								<< "\t Choice: ";
 						}
 
 					}	//Main if attack 3
-					
+
 
 				} while (attack != 2);	//Random attacks
 
 
 			}	// weapon 3 if statement.
 
-			readHighscore(highscore, name, currentName, curentScore);	/* Reads Writes the Name of the player and the current highest score in the game
-																		if the file doesnt exist itll create one and make the player the highscore and write it to the "highscore.txt"
-																		If the file exist itll check to see if the score is higher than the current highest.
-																		If it is itll replace it and ask for the players name.
-																		If not itll display a message saying You are not the highest score.*/
+			// See if the player got the highscore
+			readHighscore(highscore, name, currentName, currentScore);
 
-		case 3:	// case 3 QUIT
+			// Replay the game if the player wants to
+			do {
+				cout << "\nWould you like restart your entire journey?" << endl
+					<< "(Type Y for Yes or N for No): ";
+				cin >> keepPlaying;
+
+				if (keepPlaying == 'Y' || keepPlaying == 'y') {
+					points = 0;
+				}
+				if (keepPlaying == 'N' || keepPlaying == 'n') {
+					choice = 3;
+					cout << "\nThanks for playing!" << endl << endl;
+				}
+				else if (keepPlaying != 'Y' && keepPlaying != 'y' && keepPlaying != 'N' && keepPlaying != 'n')
+					cout << "Error ... Invalid choice ... Try again ..." << endl;
+			} while (keepPlaying != 'Y' && keepPlaying != 'y' && keepPlaying != 'N' && keepPlaying != 'n');
+
 			break;
-		}// End of Switch statement
 
+		case 3:	// Quit game
+			quit();
+		} // End of Switch statement
 
-
-	} while (choice != 3);	//main do while.
+	} while (choice != 3);	// End of do while
 
 	return;
 }
-//quit function to leave game.
+
+/*
+	void quit()
+
+	Quits the game
+
+	Return Value: None
+*/
 void quit() {
-
-	cout << "\n\tThank you for Playing! \n";
+	cout << "\n\tThanks for playing!" << endl << endl;
 	exit(EXIT_SUCCESS);
-	return;
-}
-
-//main menu selection function.
-void menu() {
-
-	cout << "Rules: Pick your Character: \n"
-		<< "\tHuman\n"
-		<< "\t Ogre\n"
-		<< "\t Elf\n\n";
-	cout << "Next you will Pick from three Weapons: \n"
-		<< "\t1. Flame Thrower \n"
-		<< "\t2. Bow and Arrow \n"
-		<< "\t3. Magic Potion \n" << endl;
-	cout << "You will fight and gain POINTS based on which\n"
-		<< "race you picked and you will accumulate points depending"
-		<< " on how well you do accumulating points.\n" << endl;
-	cout << "Records and displays Score to you." << endl;
 
 	return;
 }
-//random Flamethrower and Bow and Arrow function.
+
+/*
+	void rules()
+
+	Displays the rules of the game
+
+	Return Value: None
+*/
+void rules() {
+
+	cout << "\n\tRULES" << endl
+				<< "First, you will pick your character: " << endl
+				<< "\tHuman" << endl
+				<< "\tOgre" << endl
+				<< "\tElf" << endl << endl;
+			cout << "Next you will pick from three weapons: " << endl
+				<< "\t1. Flame Thrower" << endl
+				<< "\t2. Bow and Arrow" << endl
+				<< "\t3. Magic Potion" << endl << endl;
+			cout << "If you pick Flame Thrower or Bow and Arrow, then you will"
+				<< " \nbe taken to a practice session to test your skills"
+				<< " \non the battlefield, and you will obtain points based on" 
+				<< " \nhow well you did." << endl << endl;
+			cout << "If you pick Magic Potion, then you will"
+				<< " \nattempt to create a potion."
+				<< " \nYou will gain or lose points based on how successful you were." << endl << endl;
+
+	return;
+}
+
+/*
+	int weaponAttack(int random)
+
+	Assigns a random value between 1 and 4 to caller
+
+	Return Value: Which enemy was attacked
+*/
 int weaponAttack(int random) {
 	srand(time(NULL));
+
 	random = rand() % 4 + 1;
+
 	return random;
 }
 
-//Random magic potion maker fucntion.
+/*
+	int weaponMagicPotion(int& random)
+
+	Assigns a random value between 1 and 2 to caller
+
+	Return Value: Whether or not the potion creation was successful
+*/
 int weaponMagicPotion(int& random) {
 	srand(time(NULL));
+
 	random = rand() % 2 + 1;
+
 	return random;
 }
 
-//human race function.
+/*
+	int human(int points)
+
+	Assigns value of 100 to caller
+
+	Return Value: Points for choosing Human character
+*/
 int human(int points) {
 
 	points = 100;
@@ -353,7 +414,13 @@ int human(int points) {
 	return points;
 }
 
-//ogre race function
+/*
+	int ogre(int points)
+
+	Assigns value of 200 to caller
+
+	Return Value: Points for choosing Ogre character
+*/
 int ogre(int points) {
 
 	points = 200;
@@ -361,7 +428,13 @@ int ogre(int points) {
 	return points;
 }
 
-//elf race function
+/*
+	int elf(int points)
+
+	Assigns value of 300 to caller
+
+	Return Value: Points for choosing Elf character
+*/
 int elf(int points) {
 
 	points = 300;
@@ -369,66 +442,114 @@ int elf(int points) {
 	return points;
 }
 
-//goblin monster function
+/*
+	int goblinGrunt(int monster)
+
+	Assigns value of 100 to caller
+
+	Return Value: Points for attacking a Goblin Grunt
+*/
 int goblinGrunt(int monster) {
+
 	monster = 100;
+
 	return monster;
 }
 
-//harpy mosnter function.
+/*
+	int harpyMonster(int monster)
+
+	Assigns value of 200 to caller
+
+	Return Value: Points for attacking a Harpy
+*/
 int harpyMonster(int monster) {
+
 	monster = 200;
+
 	return monster;
 }
 
-//balrog monster function
+/*
+	int balrogMonster(int monster)
+
+	Assigns value of 300 to caller
+
+	Return Value: Points for attacking a Balrog
+*/
 int balrogMonster(int monster) {
+
 	monster = 300;
-	return monster;
 
-}
-
-//misses and attack function.
-int missAttack(int monster) {
-	monster = 0;
 	return monster;
 }
 
-//potion creation success function.
+/*
+	int potionSuccess(int success)
+
+	Assigns value of 200 to caller
+
+	Return Value: Points for a successful potion creation
+*/
 int potionSuccess(int success) {
+
 	success = 200;
+
 	return success;
 }
 
-//potion creation failure function.
+/*
+	int potionFail(int fail)
+
+	Assigns value of -100 to caller
+
+	Return Value: Points for a failed potion creation
+*/
 int potionFail(int fail) {
+
 	fail = -100;
+
 	return fail;
 }
 
-//saves hiscore to "highscore.txt" function
+/*
+	void saveHighscore(string& name, int& highscore)
+
+	Writes player's name and highscore to highscore.txt
+
+	Return Value: None
+*/
 void saveHighscore(string& name, int& highscore) {
 	fstream hFile;
 
 	hFile.open("highscore.txt", ios::out);
 
 	if (hFile) {
-		cout << "\n\tPlease Enter Your Name: ";
+		cout << "\n\tPlease enter your name: ";
 
 		cin.ignore();
-
 		getline(cin, name);
+		
 		// Write to file
-
 		hFile << name << endl << highscore;
-
-
 	}
-	//closes file
+
+	// Close file
 	hFile.close();
+
 	return;
 }
-//reads and checks to see the highest score and also calls the saveHighscore().
+
+/*
+	void readHighscore(int highscore, string name, string& currentName, int& currentScore) 
+
+	Reads in score from highscore.txt, checks to see if player's score is higher than score
+	in file, then replaces file score with current player's score. If player's score is higher, then
+	the player's score will replace the score in the file and the player will be prompted for their name.
+	If player's score is not higher, then a message will be displayed saying "You don't have the highscore :(".
+
+	Return Value: None
+*/
 void readHighscore(int highscore, string name, string& currentName, int& currentScore) {
 	fstream  hFile;
 	if (hFile) {
@@ -439,8 +560,8 @@ void readHighscore(int highscore, string name, string& currentName, int& current
 		if (!hFile) {
 			saveHighscore(name, highscore);
 			cout << "\n\t------------------------------------\n";
-			cout << name << " Highscore is: " << highscore;
-			cout << "\n\tSaved Highscore";
+			cout << name << ", your highscore is: " << highscore;
+			cout << "\n\tSuccessfully saved your highscore";
 			cout << "\n\t------------------------------------\n";
 		}
 		else if (hFile)
@@ -451,18 +572,19 @@ void readHighscore(int highscore, string name, string& currentName, int& current
 				hFile >> currentScore;
 
 				if (currentScore <= highscore) {
-					cout << "\n\tYou have the New Highscore!\n";
+					cout << "\n\tYou have the new highscore!\n";
 					saveHighscore(name, highscore);
 					cout << "\t----------------------------------";
-					cout << "\n\tNew Highscore is: " << name << " with " << highscore << endl;
+					cout << "\n\tThe highest scoring player is: " << name << " with " << highscore << " points." << endl;
 					cout << "\t----------------------------------\n";
 				}
 				else
-					cout << "\n\tYou Dont have the Highscore.\n";
+					cout << "\n\tYou don't have the highscore :(\n";
 			}
 	}
 
-	//close file
+	// Close file
 	hFile.close();
+
 	return;
 }
