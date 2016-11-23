@@ -1,5 +1,5 @@
 /*
-	RPG Adventures V7 
+	RPG Adventures V7.1 
 
 	Victor Martins and Fayyaadh Razak
 
@@ -46,14 +46,26 @@ int human(int);
 int ogre(int);
 int elf(int);
 int weaponAttack(int);
-int goblinGrunt(int);
-int harpyMonster(int);
-int balrogMonster(int);
 int potionSuccess(int);
 int potionFail(int);
 int weaponMagicPotion(int&);
 void saveHighscore(string&, int&);
 void readHighscore(int, string, string&, int&);
+
+
+struct monsters {
+
+	string monsterGoblin = "Goblin Grunt";
+	string monsterHarpy = "Harpy";
+	string monsterBalrog = "Balrog";
+	int goblinPoints = 100;
+	int harpyPoints = 200;
+	int balrogPoints = 300;
+	int mID_Goblin = 1;
+	int mID_Harpy = 2;
+	int mID_Balrog = 3;
+	int action_miss = 0;
+};
 
 int main() {
 
@@ -66,10 +78,10 @@ int main() {
 void game() {
 	string name, currentName;			//variables
 	int choice = 0, points = 0, random = 0;
-	int weapon = 0, race = 0, highscore = 0, goblin = 1;
-	int harpy = 2, balrog = 3, miss = 4, monster = 0;
+	int weapon = 0, race = 0, highscore = 0;
+	int monster = 0;
 	int Success = 0, Fail = 0, curentScore;
-
+	monsters creatures;
 
 
 	do {// Main selection menu
@@ -155,32 +167,37 @@ void game() {
 
 					if (attack == 1) {
 
-						cout << "\n\tYou Have Taken your Flamethrower out of your back-pack!\n";
 						// Random flamethrower attack options
 
-						if (weaponAttack(random) == goblin) {
-							cout << "\n\tYou have BURNED A Goblin  Grunt! \n\n";
-							highscore += goblinGrunt(monster);
+						if (weaponAttack(random) == creatures.mID_Goblin) {
+							cout << "\n\tYou Have Taken your Flamethrower out of your back-pack!\n";
+							cout << "\n\tYou have BURNED A " << creatures.monsterGoblin << endl;
+							highscore += creatures.goblinPoints;
 							cout << "\tPress 1 to Attack Again!\n"
 								<< "\tPress 2 to go to Main Menu" <<
 								"'\n\t Choose: ";
 						}
 
-						else if (weaponAttack(random) == harpy) {
-							cout << "\n\tYou have BURNED A Harpy! \n";
-							highscore += harpyMonster(monster);
+						else if (weaponAttack(random) == creatures.mID_Harpy) {
+							cout << "\n\tYou Have Taken your Flamethrower out of your back-pack!\n";
+							cout << "\n\tYou have BURNED A " << creatures.monsterHarpy << "! \n";
+							highscore += creatures.harpyPoints;
 							cout << "\tPress 1 to Attack Again!\n"
 								<< "\tPress 2 to go to Main Menu" <<
 								"'\n\t Choose: ";
 						}
-						else if (weaponAttack(random) == balrog) {
-							cout << "\n\tYou have BURNED A Balrog! \n";
-							highscore += balrogMonster(monster);
+	
+						else if (weaponAttack(random) == creatures.mID_Balrog) {
+							cout << "\n\tYou Have Taken your Flamethrower out of your back-pack!\n";
+							cout << "\n\tYou have BURNED A " << creatures.monsterBalrog << "! \n";
+							highscore += creatures.balrogPoints;
 							cout << "\tPress 1 to Attack Again!\n"
 								<< "\tPress 2 to go to Main Menu" <<
 								"'\n\t Choose: ";
 						}
-						else if (weaponAttack(random) == miss) {
+
+						else if (weaponAttack(random) == creatures.action_miss) {
+							cout << "\n\tYou Have Taken your Flamethrower out of your back-pack!\n";
 							cout << "\n\tYou missed Monsters got AWAY!!\n";
 							cout << "\tPress 1 to Attack Again!\n"
 								<< "\tPress 2 to go to Main Menu!" <<
@@ -214,29 +231,29 @@ void game() {
 					if (attack == 1) {
 
 
-						if (weaponAttack(random) == goblin) {
+						if (weaponAttack(random) == creatures.mID_Goblin) {
 							cout << "\n\tYou have SHOT A Goblin  Grunt! \n\n";
-							highscore += goblinGrunt(monster);
+							highscore += creatures.goblinPoints;
 							cout << "\tPress 1 to Attack Again!\n"
 								<< "\tPress 2 to go to Main Menu" <<
 								"'\n\t Choose: ";
 						}
 
-						else if (weaponAttack(random) == harpy) {
-							cout << "\n\tYou have SHOT A Harpy! \n";
-							highscore += harpyMonster(monster);
+						else if (weaponAttack(random) == creatures.mID_Harpy) {
+							cout << "\n\tYou have SHOT A " << creatures.monsterHarpy << "! \n";
+							highscore += creatures.harpyPoints;
 							cout << "\tPress 1 to Attack Again!\n"
 								<< "\tPress 2 to go to Main Menu" <<
 								"'\n\t Choose: ";
 						}
-						else if (weaponAttack(random) == balrog) {
-							cout << "\n\tYou have SHOT A Balrog! \n";
-							highscore += balrogMonster(monster);
+						else if (weaponAttack(random) == creatures.mID_Balrog) {
+							cout << "\n\tYou have SHOT A " << creatures.monsterBalrog << "! \n";
+							highscore += creatures.balrogPoints;
 							cout << "\tPress 1 to Attack Again!\n"
 								<< "\tPress 2 to go to Main Menu" <<
 								"'\n\t Choose: ";
 						}
-						else if (weaponAttack(random) == miss) {
+						else if (weaponAttack(random) == creatures.action_miss) {
 							cout << "\n\tYou missed, Arrow Wasted!!\n";
 							cout << "\tPress 1 to Attack Again!\n"
 								<< "\tPress 2 to go to Main Menu!" <<
@@ -291,8 +308,6 @@ void game() {
 						}
 
 					}	//Main if attack 3
-					else 
-						cout << "\n\tWrong Value Try Again.";
 
 				} while (attack != 2);	//Random attacks
 
@@ -382,25 +397,6 @@ int elf(int points) {
 	return points;
 }
 
-//goblin monster function
-int goblinGrunt(int monster) {
-	monster = 100;
-	return monster;
-}
-
-//harpy mosnter function.
-int harpyMonster(int monster) {
-	monster = 200;
-	return monster;
-}
-
-//balrog monster function
-int balrogMonster(int monster) {
-	monster = 300;
-	return monster;
-
-}
-
 //potion creation success function.
 int potionSuccess(int success) {
 	success = 200;
@@ -477,3 +473,4 @@ void readHighscore(int highscore, string name, string& currentName, int& current
 	hFile.close();
 	return;
 }
+
