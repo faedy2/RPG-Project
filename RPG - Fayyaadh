@@ -88,7 +88,7 @@ int main() {
 
 		// Quit Game
 		else if (menuChoice == 3) {
-			cout << "\n\tThanks for playing!" << endl << endl;
+			cout << setw(58) << endl << "\tThanks for playing!" << endl << endl;
 		}
 		else
 			cout << "Error ... Invalid choice ... Try again ..." << endl;
@@ -107,12 +107,12 @@ int main() {
 	Return Value: None
 */
 void menu() {
-	cout << "\n\tWelcome to RPG Adventures!" << endl
-		<< "\nSelect from the following options:" << endl
-		<< "1) See Rules" << endl
-		<< "2) Play Game" << endl
-		<< "3) Quit" << endl
-		<< "What do you choose?: ";
+	cout << "\n" << setw(70) << "Welcome to RPG Adventures!" << endl
+		<< "\n" << setw(74) << "Select from the following options:" << endl
+		<< setw(63) << "1) See Rules" << endl
+		<< setw(63) << "2) Play Game" << endl
+		<< setw(58) << "3) Quit" << endl
+		<< setw(61) << endl << "What do you choose?: ";
 
 	return;
 }
@@ -126,22 +126,24 @@ void menu() {
 */
 void rules() {
 
-	cout << "\n\tRULES" << endl
-		<< "First, you will pick your character: " << endl
-		<< "\tHuman" << endl
-		<< "\tOgre" << endl
-		<< "\tElf" << endl << endl;
-	cout << "Next you will pick from three weapons: " << endl
-		<< "\t1. Flame Thrower" << endl
-		<< "\t2. Bow and Arrow" << endl
-		<< "\t3. Magic Potion" << endl << endl;
-	cout << "If you pick Flame Thrower or Bow and Arrow, then you will"
-		<< " \nbe taken to a practice session to test your skills"
-		<< " \non the battlefield, and you will obtain points based on"
-		<< " \nhow well you did." << endl << endl;
-	cout << "If you pick Magic Potion, then you will"
-		<< " \nattempt to create a potion."
-		<< " \nYou will gain or lose points based on how successful you were." << endl << endl;
+	cout << endl << endl << setw(59) << "------------------------------------------------------------------------------------------------------------------------"
+		<< setw(59) << "RULES" << endl
+		<< setw(59) << "------------------------------------------------------------------------------------------------------------------------" << endl
+		<< setw(77) << "First, you will pick your character: " << endl
+		<< setw(59) << "Human" << endl
+		<< setw(58) << "Ogre" << endl
+		<< setw(57) << "Elf" << endl << endl;
+	cout << setw(79) << "Next you will pick from three weapons: " << endl
+		<< setw(59) << "\t1. Flame Thrower" << endl
+		<< setw(59) << "\t2. Bow and Arrow" << endl
+		<< setw(59) << "\t3. Magic Potion" << endl << endl;
+	cout << setw(88) << "If you pick Flame Thrower or Bow and Arrow, then you will"
+		<< setw(81) << endl << " be taken to a practice session to test your skills"
+		<< setw(86) << endl << " on the battlefield, and you will obtain points based on"
+		<< setw(82) << " how well you did." << endl << endl;
+	cout << setw(70) << "If you pick Magic Potion, then you will"
+		<< setw(58) << endl << " attempt to create a potion."
+		<< setw(93) << endl << " You will gain or lose points based on how successful you were." << endl << endl;
 
 	return;
 }
@@ -160,7 +162,7 @@ int characterSelect(int raceChoice, int points) {
 			<< "\t1) Human" << endl
 			<< "\t2) Ogre" << endl
 			<< "\t3) Elf" << endl
-			<< "What do you choose?: ";
+			<< "\tWhat do you choose?: ";
 		cin >> raceChoice;
 
 		// Assign points for Human
@@ -179,7 +181,7 @@ int characterSelect(int raceChoice, int points) {
 		}
 
 		else
-			cout << "Error ... Invalid choice ... Try again ..." << endl << endl;
+			cout << "\n\tError ... Invalid choice ... Try again ..." << endl << endl;
 	} while (raceChoice != 1 && raceChoice != 2 && raceChoice != 3);
 
 	return points;
@@ -194,11 +196,11 @@ int characterSelect(int raceChoice, int points) {
 */
 int Weapon(int weaponChoice, int attack, int random, int points, int sessionChoice) {
 	do {
-		cout << "\nCHOOSE YOUR WEAPON" << endl
+		cout << "\n\tCHOOSE YOUR WEAPON" << endl
 			<< "\t1) Flame Thrower" << endl
 			<< "\t2) Bow and Arrow" << endl
 			<< "\t3) Magic Potion" << endl
-			<< "What do you choose?: ";
+			<< "\tWhat do you choose?: ";
 		cin >> weaponChoice;
 
 		// Flame Thrower Practice Session
@@ -242,7 +244,7 @@ int Weapon(int weaponChoice, int attack, int random, int points, int sessionChoi
 					cin >> sessionChoice;
 
 					if (sessionChoice != 1 && sessionChoice != 2)
-						cout << "\tError... Invalid input... Try again..." << endl;
+						cout << "\n\tError... Invalid input... Try again..." << endl;
 				} while (sessionChoice != 1 && sessionChoice != 2);
 
 			} while (sessionChoice == 1 && sessionChoice != 2);
@@ -289,7 +291,7 @@ int Weapon(int weaponChoice, int attack, int random, int points, int sessionChoi
 					cin >> sessionChoice;
 
 					if (sessionChoice != 1 && sessionChoice != 2)
-						cout << "\tError... Invalid input... Try again..." << endl;
+						cout << "\n\tError... Invalid input... Try again..." << endl;
 				} while (sessionChoice != 1 && sessionChoice != 2);
 
 			} while (sessionChoice == 1 && sessionChoice != 2);
@@ -313,7 +315,7 @@ int Weapon(int weaponChoice, int attack, int random, int points, int sessionChoi
 				cout << "\n\tYou begin mixing magical ingredients..." << endl;
 
 				if (random == 1) {
-					cout << "\nYou made the potion successfully!" << endl;
+					cout << "\n\tYou made the potion successfully!" << endl;
 					points += 200;
 
 					do {
@@ -327,7 +329,7 @@ int Weapon(int weaponChoice, int attack, int random, int points, int sessionChoi
 					} while (sessionChoice != 1 && sessionChoice != 2);
 				}
 				else {
-					cout << "\nYou destroyed the Tavern..." << endl;
+					cout << "\n\tYou destroyed the Tavern..." << endl;
 					points -= 100;
 
 					do {
@@ -337,7 +339,7 @@ int Weapon(int weaponChoice, int attack, int random, int points, int sessionChoi
 						cin >> sessionChoice;
 
 						if (sessionChoice != 1 && sessionChoice != 2)
-							cout << "\tError... Invalid input... Try again..." << endl;
+							cout << "\n\tError... Invalid input... Try again..." << endl;
 					} while (sessionChoice != 1 && sessionChoice != 2);
 				}
 
@@ -345,7 +347,7 @@ int Weapon(int weaponChoice, int attack, int random, int points, int sessionChoi
 		}
 
 		else
-			cout << "Error ... Invalid choice ... Try again ..." << endl;
+			cout << "\n\tError ... Invalid choice ... Try again ..." << endl;
 
 	} while (weaponChoice != 1 && weaponChoice != 2 && weaponChoice != 3);
 
@@ -362,19 +364,20 @@ int Weapon(int weaponChoice, int attack, int random, int points, int sessionChoi
 */
 void Restart(char keepPlaying, int& points, int& menuChoice) {
 	do {
-		cout << "Would you like to continue playing?" << endl
-			<< "(Type Y for Yes or N for No): ";
+		cout << "\n\tWould you like to continue playing?" << endl
+			<< "\t(Type Y for Yes or N for No): ";
 		cin >> keepPlaying;
 
 		if (keepPlaying == 'Y' || keepPlaying == 'y') {
 			points = 0;
+			system("cls"); // Clears the entire terminal output for the next game session
 		}
 		if (keepPlaying == 'N' || keepPlaying == 'n') {
 			menuChoice = 3;
-			cout << "\nThanks for playing!" << endl << endl;
+			cout << "\n\tThanks for playing!" << endl << endl;
 		}
 		else if (keepPlaying != 'Y' && keepPlaying != 'y' && keepPlaying != 'N' && keepPlaying != 'n')
-			cout << "Error ... Invalid choice ... Try again ..." << endl;
+			cout << "\n\tError ... Invalid choice ... Try again ..." << endl;
 	} while (keepPlaying != 'Y' && keepPlaying != 'y' && keepPlaying != 'N' && keepPlaying != 'n');
 
 	return;
@@ -431,10 +434,10 @@ void readHighscore(int highscore, string name, string& currentName, int& current
 		if (!hFile) {
 			cout << "\n\tNo file available... Creating file..." << endl;
 			saveHighscore(name, highscore);
-			cout << "\n\t------------------------------------" << endl;
+			cout << "\n\t---------------------------------------" << endl;
 			cout << "\t" << name << ", your highscore is: " << highscore;
 			cout << "\n\tSuccessfully saved your highscore";
-			cout << "\n\t------------------------------------" << endl;
+			cout << "\n\t---------------------------------------" << endl;
 		}
 		else if (hFile)
 			while (hFile >> currentName) {
@@ -446,9 +449,9 @@ void readHighscore(int highscore, string name, string& currentName, int& current
 				if (currentScore <= highscore) {
 					cout << "\n\tYou have the new highscore!" << endl;
 					saveHighscore(name, highscore);
-					cout << "\t----------------------------------";
+					cout << "\t--------------------------------------------";
 					cout << "\n\tThe highest scoring player is " << name << " with " << highscore << " points." << endl;
-					cout << "\t----------------------------------" << endl;
+					cout << "\t--------------------------------------------" << endl;
 				}
 				else
 					cout << "\n\tYou don't have the highscore :(" << endl << endl;
