@@ -1,5 +1,5 @@
 /*
-	RPG Adventures V7.1 
+	RPG Adventures V7.2
 
 	Victor Martins and Fayyaadh Razak
 
@@ -61,10 +61,11 @@ struct monsters {
 	int goblinPoints = 100;
 	int harpyPoints = 200;
 	int balrogPoints = 300;
-	int mID_Goblin = 1;
-	int mID_Harpy = 2;
-	int mID_Balrog = 3;
-	int action_miss = 0;
+	int action_miss = 1;
+	int mID_Goblin = 2;
+	int mID_Harpy = 3;
+	int mID_Balrog = 4;
+	
 };
 
 int main() {
@@ -171,7 +172,7 @@ void game() {
 
 						if (weaponAttack(random) == creatures.mID_Goblin) {
 							cout << "\n\tYou Have Taken your Flamethrower out of your back-pack!\n";
-							cout << "\n\tYou have BURNED A " << creatures.monsterGoblin << endl;
+							cout << "\n\tYou have BURNED A " << creatures.monsterGoblin << "! \n\n";
 							highscore += creatures.goblinPoints;
 							cout << "\tPress 1 to Attack Again!\n"
 								<< "\tPress 2 to go to Main Menu" <<
@@ -180,7 +181,7 @@ void game() {
 
 						else if (weaponAttack(random) == creatures.mID_Harpy) {
 							cout << "\n\tYou Have Taken your Flamethrower out of your back-pack!\n";
-							cout << "\n\tYou have BURNED A " << creatures.monsterHarpy << "! \n";
+							cout << "\n\tYou have BURNED A " << creatures.monsterHarpy << "! \n\n";
 							highscore += creatures.harpyPoints;
 							cout << "\tPress 1 to Attack Again!\n"
 								<< "\tPress 2 to go to Main Menu" <<
@@ -189,7 +190,7 @@ void game() {
 	
 						else if (weaponAttack(random) == creatures.mID_Balrog) {
 							cout << "\n\tYou Have Taken your Flamethrower out of your back-pack!\n";
-							cout << "\n\tYou have BURNED A " << creatures.monsterBalrog << "! \n";
+							cout << "\n\tYou have BURNED A " << creatures.monsterBalrog << "! \n\n";
 							highscore += creatures.balrogPoints;
 							cout << "\tPress 1 to Attack Again!\n"
 								<< "\tPress 2 to go to Main Menu" <<
@@ -199,7 +200,7 @@ void game() {
 						else if (weaponAttack(random) == creatures.action_miss) {
 							cout << "\n\tYou Have Taken your Flamethrower out of your back-pack!\n";
 							cout << "\n\tYou missed Monsters got AWAY!!\n";
-							cout << "\tPress 1 to Attack Again!\n"
+							cout << "\tPress 1 to Attack Again!\n\n"
 								<< "\tPress 2 to go to Main Menu!" <<
 								"'\n\t Choose: ";
 						}
@@ -240,21 +241,21 @@ void game() {
 						}
 
 						else if (weaponAttack(random) == creatures.mID_Harpy) {
-							cout << "\n\tYou have SHOT A " << creatures.monsterHarpy << "! \n";
+							cout << "\n\tYou have SHOT A " << creatures.monsterHarpy << "! \n\n";
 							highscore += creatures.harpyPoints;
 							cout << "\tPress 1 to Attack Again!\n"
 								<< "\tPress 2 to go to Main Menu" <<
 								"'\n\t Choose: ";
 						}
 						else if (weaponAttack(random) == creatures.mID_Balrog) {
-							cout << "\n\tYou have SHOT A " << creatures.monsterBalrog << "! \n";
+							cout << "\n\tYou have SHOT A " << creatures.monsterBalrog << "! \n\n";
 							highscore += creatures.balrogPoints;
 							cout << "\tPress 1 to Attack Again!\n"
 								<< "\tPress 2 to go to Main Menu" <<
 								"'\n\t Choose: ";
 						}
 						else if (weaponAttack(random) == creatures.action_miss) {
-							cout << "\n\tYou missed, Arrow Wasted!!\n";
+							cout << "\n\tYou missed, Arrow Wasted!!\n\n";
 							cout << "\tPress 1 to Attack Again!\n"
 								<< "\tPress 2 to go to Main Menu!" <<
 								"'\n\t Choose: ";
