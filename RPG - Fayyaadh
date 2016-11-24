@@ -91,7 +91,7 @@ int main() {
 			cout << setw(58) << endl << "\tThanks for playing!" << endl << endl;
 		}
 		else
-			cout << "Error ... Invalid choice ... Try again ..." << endl;
+			cout << setw(82) <<"Error ... Invalid choice ... Try again ..." << endl;
 	} while (menuChoice != 3);
 
 	return 0;
@@ -130,17 +130,17 @@ void rules() {
 		<< setw(59) << "RULES" << endl
 		<< setw(59) << "------------------------------------------------------------------------------------------------------------------------" << endl
 		<< setw(77) << "First, you will pick your character: " << endl
-		<< setw(59) << "Human" << endl
-		<< setw(58) << "Ogre" << endl
-		<< setw(57) << "Elf" << endl << endl;
+		<< setw(59) << "1) Human" << endl
+		<< setw(58) << "2) Ogre" << endl
+		<< setw(57) << "3) Elf" << endl << endl;
 	cout << setw(79) << "Next you will pick from three weapons: " << endl
-		<< setw(59) << "\t1. Flame Thrower" << endl
-		<< setw(59) << "\t2. Bow and Arrow" << endl
-		<< setw(59) << "\t3. Magic Potion" << endl << endl;
+		<< setw(59) << "\t1) Flame Thrower" << endl
+		<< setw(59) << "\t2) Bow and Arrow" << endl
+		<< setw(59) << "\t3) Magic Potion" << endl << endl;
 	cout << setw(88) << "If you pick Flame Thrower or Bow and Arrow, then you will"
 		<< setw(81) << endl << " be taken to a practice session to test your skills"
 		<< setw(86) << endl << " on the battlefield, and you will obtain points based on"
-		<< setw(82) << " how well you did." << endl << endl;
+		<< " how well you did." << endl << endl;
 	cout << setw(70) << "If you pick Magic Potion, then you will"
 		<< setw(58) << endl << " attempt to create a potion."
 		<< setw(93) << endl << " You will gain or lose points based on how successful you were." << endl << endl;
@@ -364,7 +364,7 @@ int Weapon(int weaponChoice, int attack, int random, int points, int sessionChoi
 */
 void Restart(char keepPlaying, int& points, int& menuChoice) {
 	do {
-		cout << "\n\tWould you like to continue playing?" << endl
+		cout << "\n\tWould you like to restart your adventure?" << endl
 			<< "\t(Type Y for Yes or N for No): ";
 		cin >> keepPlaying;
 
@@ -434,10 +434,10 @@ void readHighscore(int highscore, string name, string& currentName, int& current
 		if (!hFile) {
 			cout << "\n\tNo file available... Creating file..." << endl;
 			saveHighscore(name, highscore);
-			cout << "\n\t---------------------------------------" << endl;
+			cout << "\n-----------------------------------------------------------------------------------------------------------------------" << endl;
 			cout << "\t" << name << ", your highscore is: " << highscore;
 			cout << "\n\tSuccessfully saved your highscore";
-			cout << "\n\t---------------------------------------" << endl;
+			cout << "\n-----------------------------------------------------------------------------------------------------------------------" << endl;
 		}
 		else if (hFile)
 			while (hFile >> currentName) {
@@ -449,9 +449,9 @@ void readHighscore(int highscore, string name, string& currentName, int& current
 				if (currentScore <= highscore) {
 					cout << "\n\tYou have the new highscore!" << endl;
 					saveHighscore(name, highscore);
-					cout << "\t--------------------------------------------";
+					cout << "\n------------------------------------------------------------------------------------------------------------------------";
 					cout << "\n\tThe highest scoring player is " << name << " with " << highscore << " points." << endl;
-					cout << "\t--------------------------------------------" << endl;
+					cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 				}
 				else
 					cout << "\n\tYou don't have the highscore :(" << endl << endl;
