@@ -225,7 +225,7 @@ int Weapon(int weaponChoice, int attack, int random, int points, int sessionChoi
 					points += 100;
 				}
 				else if (random == 2) {
-					cout << "\tYou burned the Skeltal Archer to a crisp!" << endl;
+					cout << "\tYou burned the Skeletal Archer to a crisp!" << endl;
 					points += 200;
 				}
 				else if (random == 3) {
@@ -272,7 +272,7 @@ int Weapon(int weaponChoice, int attack, int random, int points, int sessionChoi
 					points += 100;
 				}
 				else if (random == 2) {
-					cout << "\tYou impaled the Skeltal Archer!" << endl;
+					cout << "\tYou impaled the Skeletal Archer!" << endl;
 					points += 200;
 				}
 				else if (random == 3) {
